@@ -25,7 +25,7 @@ def main():
     columns_tmp = list(columns)
     columns_tmp.remove(class_name)
 
-    x_train, x_test, y_train, y_test = train_test_split(df[columns_tmp], df[class_name], test_size=0.001)
+    x_train, x_test, y_train, y_test = train_test_split(df[columns_tmp], df[class_name], test_size=0.3)
 
     model = RandomForestClassifier(n_estimators = 120, n_jobs=-1, random_state=0)  
     model.fit(x_train, y_train)
