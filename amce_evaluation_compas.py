@@ -12,7 +12,7 @@ from amce import AMCE
 from prepare_dataset import *
 
 def main():
-    print('This experiment can take several minutes. To reduce the time adjust the "test_size" in the classification model.')
+    print('This experiment can take a long time, depending on the number of decisions to explain. To reduce time, adjust the "test_size" in the rating model.\n')
     
     # Read Dataset Compas
     df = prepare_compas_dataset("compas-scores-two-years.csv", "C:/Users/acer/Compas/")
@@ -70,7 +70,7 @@ def main():
         #Run AMCE
         explainerAMCE = AMCE(original_instance, p[X], static_list, K, df[columns_tmp], x_train, model, num_gen, pop_size, per_elit, cros_proba, mutation_proba, L1, L2, L3, algorithm)
     
-        contrafactual_set, solution = explainerAMCE.executaAMCE()
+        contrafactual_set, solution = explainerAMCE.explain()
                         
         #Prints number of changes in counterfactual generation
         if len(solution) != 0:

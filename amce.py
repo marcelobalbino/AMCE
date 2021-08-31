@@ -341,7 +341,7 @@ class AMCE(object):
     #def ShowShapPlot(self, population, explainerAG)
     #    shap.force_plot(explainer.expected_value[0], shap_values[0][X,:], population.iloc[X,:])
                           
-    def executaAMCE(self):    
+    def explain(self):    
         ind_cur_class = self.getBadClass()
     
         #Gets the domain of each feature

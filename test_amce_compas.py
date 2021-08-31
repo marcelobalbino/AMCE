@@ -61,7 +61,7 @@ def main():
     #Run AMCE
     explainerAMCE = AMCE(original_instance, p[X], static_list, K, df[columns_tmp], x_train, model, num_gen, pop_size, per_elit, cros_proba, mutation_proba, L1, L2, L3, algorithm)
     
-    contrafactual_set, solution = explainerAMCE.executaAMCE()
+    contrafactual_set, solution = explainerAMCE.explain() #Method returns the list of counterfactuals and the explanations generated from them
     
     #The method returns a list of counterfactual solutions, where each solution, in turn, is a change list (each change has the "column" and "value" to be changed). To implement another output format, see the "printResults" function
     explainerAMCE.printResults(solution)
