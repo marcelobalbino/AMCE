@@ -9,7 +9,7 @@ from prepare_dataset import *
 
 def main():
     # Read Dataset German
-    df = prepare_german_dataset("german_credit.csv", "C:/Users/acer/German/")
+    df = prepare_german_dataset("german_credit.csv", "./German/")
 
     #Get the input features
     columns = df.columns

@@ -21,6 +21,11 @@ class counter_change:
     def __init__(self, column, value):
         self.column = column 
         self.value = value
+    def __eq__(self, other):
+        if self.column == other.column and self.value == other.value:
+            return True
+        else:
+            return False
     def __repr__(self):
         return repr((self.column, self.value))    
         
@@ -289,6 +294,15 @@ class AMCE(object):
                 colums.append(counter_solution[j].column)
         
             return colums      
+        
+        #Checks if the new solution is contained in the solutions already found
+        def contained_solution(current_list, new_solution):
+            contained = False
+            
+            for pos in range (0, len(current_list)): 
+                if all(x in new_solution for x in current_list[pos]): 
+                    contained = True
+            return contained
 
         contrafactual_ind = pd.DataFrame(columns=self.input_dataset.columns)
         solution_list = []
@@ -308,23 +322,25 @@ class AMCE(object):
                 ind_colums_change = getColumns(ind_changes)
                 
                 if ind_colums_change not in solution_colums_list:
-                    #print('index', i, 'aval', str(aval[i].index),'score ', str(aval[i].score), 'aval norm', str(aval[i].aval_norm), 'dist norm', str(aval[i].dist_norm), 'distance', str(aval[i].distance))
-                    
-                    #Include counterfactual in the list of examples of the final solution
-                    contrafactual_ind.loc[len(contrafactual_ind)] = df.iloc[aval[i].index].copy()
+                    #Check if one solution is a subset of the other
+                    if not contained_solution(solution_list, ind_changes):
+                        #Include counterfactual in the list of examples of the final solution
+                        contrafactual_ind.loc[len(contrafactual_ind)] = df.iloc[aval[i].index].copy()
                                 
-                    #Add to the list of solutions (changes only)       
-                    solution_list.append(ind_changes)
-                    #Used to compare with the next counterfactuals (to ensure diversity)
-                    solution_colums_list.append(ind_colums_change)
+                        #Add to the list of solutions (changes only)       
+                        solution_list.append(ind_changes)
+                        #Used to compare with the next counterfactuals (to ensure diversity)
+                        solution_colums_list.append(ind_colums_change)
                                         
-                    numContraf = numContraf + 1
+                        numContraf = numContraf + 1
+                    #else:
+                    #    print('is contained ', ind_changes)
                 #else:
                 #    print('repeated ', ind_changes)
                       
             i = i + 1
 
-        return contrafactual_ind, solution_list    
+        return contrafactual_ind, solution_list   
     
     def printResults(self, solution):
         print("Result obtained")

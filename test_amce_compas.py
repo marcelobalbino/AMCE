@@ -9,7 +9,7 @@ from prepare_dataset import *
 
 def main():
     # Read Dataset Compas
-    df = prepare_compas_dataset("compas-scores-two-years.csv", "C:/Users/acer/Compas/")
+    df = prepare_compas_dataset("compas-scores-two-years.csv", "./Compas/")
 
     #Get the input features
     columns = df.columns.tolist()

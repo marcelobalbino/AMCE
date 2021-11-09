@@ -15,7 +15,7 @@ def main():
     print('This experiment can take a long time, depending on the number of decisions to explain. To reduce time, adjust the "test_size" in the rating model.\n')
     
     # Read Dataset German
-    df = prepare_german_dataset("german_credit.csv", "C:/Users/acer/German/")
+    df = prepare_german_dataset("german_credit.csv", "./German/")
 
     #Get the input features
     columns = df.columns
